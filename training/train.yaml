@@ -1,0 +1,49 @@
+apiVersion: "kubeflow.org/v1"
+kind: PyTorchJob
+metadata:
+  name: pytorch-seelam
+  namespace: kubeflow
+spec:
+  pytorchReplicaSpecs:
+    Master:
+      replicas: 1
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+            - name: pytorch
+              # image: docker.io/kubeflowkatib/pytorch-mnist:v1beta1-45c5727
+              image: gcr.io/amlc-hw3/pytorch-mnist:latest
+              imagePullPolicy: Always
+              command:
+                - "python3"
+                - "/opt/pytorch-mnist/mnist.py"
+                - "--epochs=1"
+              volumeMounts:
+                - name: model-volume
+                  mountPath: "/model"
+          volumes:
+            - name: model-volume
+              persistentVolumeClaim:
+                claimName: model-pvc
+    Worker:
+      replicas: 1
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+            - name: pytorch
+              # image: docker.io/kubeflowkatib/pytorch-mnist:v1beta1-45c5727
+              image: gcr.io/amlc-hw3/pytorch-mnist:latest
+              imagePullPolicy: Always
+              command:
+                - "python3"
+                - "/opt/pytorch-mnist/mnist.py"
+                - "--epochs=1"
+              volumeMounts:
+                - name: model-volume
+                  mountPath: "/model"
+          volumes:
+            - name: model-volume
+              persistentVolumeClaim:
+                claimName: model-pvc
