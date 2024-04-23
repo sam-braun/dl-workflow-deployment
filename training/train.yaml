@@ -12,13 +12,13 @@ spec:
         spec:
           containers:
             - name: pytorch
-              # image: docker.io/kubeflowkatib/pytorch-mnist:v1beta1-45c5727
               image: gcr.io/amlc-hw3/pytorch-mnist:latest
               imagePullPolicy: Always
               command:
                 - "python3"
                 - "/opt/pytorch-mnist/mnist.py"
                 - "--epochs=1"
+                - "--savemodel=/model/mnist_model.pt"  # Ensure to include this
               volumeMounts:
                 - name: model-volume
                   mountPath: "/model"
@@ -33,13 +33,13 @@ spec:
         spec:
           containers:
             - name: pytorch
-              # image: docker.io/kubeflowkatib/pytorch-mnist:v1beta1-45c5727
               image: gcr.io/amlc-hw3/pytorch-mnist:latest
               imagePullPolicy: Always
               command:
                 - "python3"
                 - "/opt/pytorch-mnist/mnist.py"
                 - "--epochs=1"
+                - "--savemodel=/model/mnist_model.pt"  # Ensure to include this
               volumeMounts:
                 - name: model-volume
                   mountPath: "/model"
