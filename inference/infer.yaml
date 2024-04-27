@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mnist-inference
+  namespace: kubeflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mnist-inference
+  template:
+    metadata:
+      labels:
+        app: mnist-inference
+    spec:
+      containers:
+      - name: mnist-inference
+        image: gcr.io/amlc-hw3/mnist-inference:latest
+        ports:
+        - containerPort: 5000
+      volumes:
+      - name: model-volume
+        persistentVolumeClaim:
+          claimName: model-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mnist-inference
+  namespace: kubeflow
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 5000
+  selector:
+    app: mnist-inference
