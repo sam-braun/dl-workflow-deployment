@@ -18,10 +18,14 @@ spec:
         image: gcr.io/amlc-hw3/mnist-inference:latest
         ports:
         - containerPort: 5000
+        volumeMounts:
+        - name: model-volume
+          mountPath: "/model"  # This should match the path used in torch.load
       volumes:
       - name: model-volume
         persistentVolumeClaim:
           claimName: model-pvc
+
 
 ---
 apiVersion: v1
