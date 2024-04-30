@@ -34,7 +34,7 @@ metadata:
   name: mnist-inference
   namespace: kubeflow
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 5000

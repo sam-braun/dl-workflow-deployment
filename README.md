@@ -45,4 +45,8 @@ Run these commands
 ### Step 7: Deploy inference job
 Run these commands: 
 1. `kubectl create -f infer.yaml`
-3. `kubectl get pods` (run this command until you see the **mnist-inference** pod has the status **Running**)
+2. `kubectl get pods` (run this command until you see the **mnist-inference** pod has the status **Running**).
+
+### Step 8: Access application
+1. Run this command: `kubectl get svc` (run until there is an EXTERNAL-IP for the **mnist-inference** pod).
+2. Enter `http://<EXTERNAL-IP>` in web browser.

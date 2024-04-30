@@ -49,10 +49,10 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'file' not in request.files:
-        return redirect(request.url)
+        return redirect('/')
     file = request.files['file']
     if file.filename == '':
-        return redirect(request.url)
+        return redirect('/')
     if file and allowed_file(file.filename):
         try:
             image_bytes = file.read()
@@ -68,10 +68,10 @@ def predict():
                 outputs = model(img_tensor)
                 _, predicted = torch.max(outputs, 1)
                 result = predicted.item()
-            return jsonify({'prediction': result})
+            return render_template('predict.html', prediction=result)
         except Exception as e:
             return jsonify({'error': str(e)})
-    return jsonify({'error': 'Error processing the file'})
+    return redirect('/')
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
