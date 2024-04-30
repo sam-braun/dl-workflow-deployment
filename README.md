@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-For proof of each step, please look at [Proof_Images.pdf](inference/samples/4.png) in this repo.
+For proof of each step, please look at [Proof_Images.pdf](inference/samples/4.png) in this repo. Unless otherwise specified, run all commands in the command line of the GCP Console terminal. Upload this code into the GCP Console code editor.
 
 - [Part 1: Preparation](#part-1-preparation)
 - [Part 2: Training Deployment](#part-2-training-deployment)
@@ -11,10 +11,12 @@ For proof of each step, please look at [Proof_Images.pdf](inference/samples/4.pn
 
 
 ## Part 1: Preparation
-Unless otherwise specified, run all commands in the command line of the GCP Console terminal. Upload this code into the GCP Console code editor. Follow these steps to set up k8s cluster:
 
-1. In Kubernetes Engine, click "Create" to create a new cluster.
-2. Once it is created, connect to the cluster using this command in the command line: `gcloud container clusters get-credentials hw3-k8s-cluster --region us-central1 --project amlc-hw3`
+### Step 1
+In Kubernetes Engine, click "Create" to create a new cluster.
+
+### Step 2
+Once it is created, connect to the cluster using this command in the command line: `gcloud container clusters get-credentials hw3-k8s-cluster --region us-central1 --project amlc-hw3`
 
 ## Part 2: Training Deployment
 
