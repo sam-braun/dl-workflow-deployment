@@ -65,5 +65,5 @@ Run these commands:
 3. Upload a test image
 
 ## Acknowledgements
-The `mnist.py` file in this repo is modeled after the `mnist.py` file in [this repo](https://github.com/kubeflow/training-operator/blob/master/examples/pytorch/mnist/mnist.py). The `server.py` file in this repo is modeled after the `server.py` file in [this repo](https://github.com/ml-kubernetes/MNIST/tree/master). The samples used in this repo are also from [this repo](https://github.com/ml-kubernetes/MNIST/tree/master).
+`train.yaml` is based on the `simple.yaml` file provided by Prof. Seelam in Slack. `mnist.py` is modeled after the `mnist.py` file in [this repo](https://github.com/kubeflow/training-operator/blob/master/examples/pytorch/mnist/mnist.py). `server.py` is modeled after the `server.py` file in [this repo](https://github.com/ml-kubernetes/MNIST/tree/master). The samples used in this repo are also from [this repo](https://github.com/ml-kubernetes/MNIST/tree/master).
 
