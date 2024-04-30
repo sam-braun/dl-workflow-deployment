@@ -34,12 +34,12 @@ Run these commands:
 2. `docker build -t gcr.io/amlc-hw3/pytorch-mnist:latest .`
 3. `docker push gcr.io/amlc-hw3/pytorch-mnist:latest`
 
-### Step 4: Apply PVC
+### Step 4: Apply PVC to store model
 Run these commands:
 1. `cd ../persistence`
 2. `kubectl apply -f pvc.yaml`
 
-### Step 5: Deploy PyTorch job
+### Step 5: Deploy PyTorch training job
 Run these commands:
 1. `cd ../training`
 2. `kubectl create -f train.yaml`
@@ -59,7 +59,7 @@ Run these commands:
 1. `kubectl create -f infer.yaml`
 2. `kubectl get pods` (run this command until you see the **mnist-inference** pod has the status **Running**).
 
-### Step 8: Access application
+### Step 8: Access inference application
 1. Run this command: `kubectl get svc` (run until there is an EXTERNAL-IP for the **mnist-inference** pod).
 2. Enter `http://<EXTERNAL-IP>` in web browser.
 3. Upload a test image
