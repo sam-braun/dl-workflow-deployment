@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-For proof of each step, please look at [Proof_Images.pdf](inference/samples/4.png) in this repo. Unless otherwise specified, run all commands in the command line of the GCP Console terminal. Upload this code into the GCP Console code editor.
+For proof of each step, please look at [Proof_Images.pdf](development/Proof_Images.pdf) in this repo. Unless otherwise specified, run all commands in the command line of the GCP Console terminal. Upload this code into the GCP Console code editor.
 
 - [Part 1: Preparation](#part-1-preparation)
 - [Part 2: Training Deployment](#part-2-training-deployment)
