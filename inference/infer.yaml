@@ -20,7 +20,7 @@ spec:
         - containerPort: 5000
         volumeMounts:
         - name: model-volume
-          mountPath: "/model"  # This should match the path used in torch.load
+          mountPath: "/model"
       volumes:
       - name: model-volume
         persistentVolumeClaim:

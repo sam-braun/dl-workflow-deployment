@@ -9,7 +9,6 @@ import base64
 import json
 import io
 
-
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
@@ -37,7 +36,6 @@ class Net(nn.Module):
 
 app = Flask(__name__)
 
-# Load the model
 model = Net()
 model.load_state_dict(torch.load('/model/mnist_model.pt'))
 model.eval()

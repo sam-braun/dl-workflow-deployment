@@ -1,12 +1,22 @@
-# Homework 3
+# Homework 3 - Samuel Braun slb2250
 
-## Part 0: Preparation
+## Table of Contents
+
+For proof of each step, please look at [Proof_Images.pdf](inference/samples/4.png) in this repo.
+
+- [Part 1: Preparation](#part-1-preparation)
+- [Part 2: Training Deployment](#part-2-training-deployment)
+- [Part 3: Inference Deployment](#part-3-inference-deployment)
+- [Acknowledgements](#acknowledgements)
+
+
+## Part 1: Preparation
 Unless otherwise specified, run all commands in the command line of the GCP Console terminal. Upload this code into the GCP Console code editor. Follow these steps to set up k8s cluster:
 
 1. In Kubernetes Engine, click "Create" to create a new cluster.
 2. Once it is created, connect to the cluster using this command in the command line: `gcloud container clusters get-credentials hw3-k8s-cluster --region us-central1 --project amlc-hw3`
 
-## Part 1: Training
+## Part 2: Training Deployment
 
 ### Step 1: Download training operator
 Run the command: `kubectl apply -k "github.com/kubeflow/training-operator/manifests/overlays/standalone?ref=v1.7.0"`
@@ -34,7 +44,7 @@ Run these commands:
 3. `kubectl get pods` (run this command until you see the **pytorch-seelam-master-0** pod has the status **Running**)
 4. 'kubectl logs <name of master pod>`
 
-## Part 2: Inference
+## Part 3: Inference Deployment
 
 ### Step 6: Build and push inference Docker image
 Run these commands
@@ -50,3 +60,8 @@ Run these commands:
 ### Step 8: Access application
 1. Run this command: `kubectl get svc` (run until there is an EXTERNAL-IP for the **mnist-inference** pod).
 2. Enter `http://<EXTERNAL-IP>` in web browser.
+3. Upload a test image
+
+## Acknowledgements
+The `mnist.py` file in this repo is modeled after the `mnist.py` file in [this repo](https://github.com/kubeflow/training-operator/blob/master/examples/pytorch/mnist/mnist.py). The `server.py` file in this repo is modeled after the `server.py` file in [this repo](https://github.com/ml-kubernetes/MNIST/tree/master). The samples used in this repo are also from [this repo](https://github.com/ml-kubernetes/MNIST/tree/master).
+
