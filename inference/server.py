@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 import torch
+import torch.nn as nn
+import torch.nn.functional as F
 from torchvision import transforms
 from PIL import Image
 from io import BytesIO
