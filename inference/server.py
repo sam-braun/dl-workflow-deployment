@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -7,6 +7,8 @@ from PIL import Image
 from io import BytesIO
 import base64
 import json
+import io
+
 
 class Net(nn.Module):
     def __init__(self):
@@ -37,30 +39,42 @@ app = Flask(__name__)
 
 # Load the model
 model = Net()
-
-# Load the model state dict
-model_state_dict = torch.load('/model/mnist_model.pt')
-model.load_state_dict(model_state_dict)
+model.load_state_dict(torch.load('/model/mnist_model.pt'))
 model.eval()
 
-def transform_image(image_bytes):
-    my_transforms = transforms.Compose([
-        transforms.Resize(28),
-        transforms.ToTensor(),
-        transforms.Normalize((0.1307,), (0.3081,))
-    ])
-    image = Image.open(BytesIO(image_bytes))
-    return my_transforms(image).unsqueeze(0)
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    if request.method == 'POST':
-        image_file = request.files['image'].read()
-        tensor = transform_image(image_bytes=image_file)
-        outputs = model(tensor)
-        _, predicted = torch.max(outputs, 1)
-        response = {'prediction': predicted.item()}
-        return jsonify(response)
+    if 'file' not in request.files:
+        return redirect(request.url)
+    file = request.files['file']
+    if file.filename == '':
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        try:
+            image_bytes = file.read()
+            img = Image.open(io.BytesIO(image_bytes)).convert('L')
+            img = img.resize((28, 28))
+            transform = transforms.Compose([
+                transforms.ToTensor(),
+                transforms.Normalize((0.1307,), (0.3081,))
+            ])
+            img_tensor = transform(img)
+            img_tensor = img_tensor.unsqueeze(0)
+            with torch.no_grad():
+                outputs = model(img_tensor)
+                _, predicted = torch.max(outputs, 1)
+                result = predicted.item()
+            return jsonify({'prediction': result})
+        except Exception as e:
+            return jsonify({'error': str(e)})
+    return jsonify({'error': 'Error processing the file'})
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
