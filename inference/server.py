@@ -9,6 +9,7 @@ import base64
 import json
 import io
 
+
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
@@ -35,14 +36,15 @@ class Net(nn.Module):
         return output
 
 app = Flask(__name__)
-
 model = Net()
 model.load_state_dict(torch.load('/model/mnist_model.pt'))
 model.eval()
 
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -71,8 +73,10 @@ def predict():
             return jsonify({'error': str(e)})
     return redirect('/')
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

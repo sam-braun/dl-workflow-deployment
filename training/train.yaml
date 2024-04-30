@@ -39,7 +39,7 @@ spec:
                 - "python3"
                 - "/opt/pytorch-mnist/mnist.py"
                 - "--epochs=1"
-                - "--savemodel=/model/mnist_model.pt"  # Ensure to include this
+                - "--savemodel=/model/mnist_model.pt"
               volumeMounts:
                 - name: model-volume
                   mountPath: "/model"
